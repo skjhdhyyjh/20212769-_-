@@ -1,7 +1,7 @@
-let t = 0;        
-let mood = 1;     // 1=작은웃음, 2=큰웃음, 3=놀람
+let t = 0;
+let mood = 1;       // 1=작은웃음, 2=큰웃음, 3=놀람
 let blinkTimer = 0;
-let nextBlink = 120; // 4초마다 깜박
+let nextBlink = 120;
 const FPS = 30;
 
 function setup() {
@@ -13,10 +13,10 @@ function draw() {
   background(250, 244, 220);
 
   // 카드
-  var cardX = 180;
-  var cardY = 60;
-  var cardW = 240;
-  var cardH = 280;
+  let cardX = 180;
+  let cardY = 60;
+  let cardW = 240;
+  let cardH = 280;
   noStroke();
   fill(230, 240, 245);
   rect(cardX, cardY, cardW, cardH, 20);
@@ -28,39 +28,37 @@ function draw() {
   textSize(14);
   text("이동형", cardX + 10, cardY - 10);
 
-  // 기준점
-  var cx = cardX + cardW / 2;
-  var cyBase = cardY + cardH / 2 + 10;
-
-  // 살짝 끄덕
-  var headBob = sin(t) * 2.0;
-  var cy = cyBase + headBob;
+  // 기준점 + 끄덕임
+  let cx = cardX + cardW / 2;
+  let cyBase = cardY + cardH / 2 + 10;
+  let headBob = sin(t) * 2.0;
+  let cy = cyBase + headBob;
 
   // 얼굴/머리/피부색
-  var faceW = 160;
-  var faceH = 220;
-  var skin  = color(242, 210, 185);
-  var hair  = color(40, 32, 28);
+  let faceW = 160;
+  let faceH = 220;
+  let skin = color(242, 210, 185);
+  let hair = color(40, 32, 28);
 
   // 레이어 기준점
-  var faceBottom = cy + faceH / 2;
-  var neckTop = faceBottom - 22;
-  var neckH = 40;
-  var neckW = 56;
-  var bodyTop = neckTop + neckH - 6;
+  let faceBottom = cy + faceH / 2;
+  let neckTop = faceBottom - 22;
+  let neckH = 40;
+  let neckW = 56;
+  let bodyTop = neckTop + neckH - 6;
 
-  // 1) 몸통
+  // 몸통
   noStroke();
   fill(80, 110, 190);
   rect(cx - 110, bodyTop, 220, 130, 28);
   fill(65, 95, 170);
   arc(cx, bodyTop, 220, 40, 0, PI, CHORD);
 
-  // 2) 목
+  // 목
   fill(skin);
   rect(cx - neckW / 2, neckTop, neckW, neckH, 12);
 
-  // 3) 얼굴
+  // 얼굴
   stroke(70, 55, 48);
   strokeWeight(1);
   fill(skin);
@@ -73,10 +71,10 @@ function draw() {
   ellipse(cx + faceW / 2 + 10, cy + 6, 22, 34);
 
   // 머리카락
-  var eyeY = cy - 18;
-  var browCenterY = eyeY - 26;
-  var crownY = cy - faceH * 0.5;
-  var hairlineY = (browCenterY + crownY) / 2;
+  let eyeY = cy - 18;
+  let browCenterY = eyeY - 26;
+  let crownY = cy - faceH * 0.5;
+  let hairlineY = (browCenterY + crownY) / 2;
 
   drawingContext.save();
   drawingContext.beginPath();
@@ -90,13 +88,13 @@ function draw() {
   drawingContext.restore();
 
   // 눈
-  var eyeDX = 38;
-  var eyeOpen = 1.0;
+  let eyeDX = 38;
+  let eyeOpen = 1.0;
 
-  // 깜박
+  // 깜박 애니메이션
   blinkTimer++;
   if (blinkTimer > nextBlink) {
-    var phase = blinkTimer - nextBlink;
+    let phase = blinkTimer - nextBlink;
     if (phase < 3) {
       eyeOpen = map(phase, 0, 2, 1, 0.05);
     } else if (phase < 6) {
@@ -107,18 +105,15 @@ function draw() {
     }
   }
 
-  // 눈썹 리프트
-  var eyebrowLift = (mouseIsPressed ? -6 : 0);
-
-  // 흰자
+  // 눈 흰자
   stroke(40, 30, 25);
   strokeWeight(1);
   fill(255);
   ellipse(cx - eyeDX, eyeY, 55, 36 * eyeOpen);
   ellipse(cx + eyeDX, eyeY, 55, 36 * eyeOpen);
 
-  // 시선
-  var look = createVector(mouseX - cx, mouseY - eyeY);
+  // 시선 (마우스를 따라감)
+  let look = createVector(mouseX - cx, mouseY - eyeY);
   look.limit(8);
 
   // 홍채/동공/하이라이트
@@ -133,7 +128,8 @@ function draw() {
   ellipse(cx - eyeDX + look.x - 4, eyeY + look.y * 0.5 - 4, 4, 4);
   ellipse(cx + eyeDX + look.x - 4, eyeY + look.y * 0.5 - 4, 4, 4);
 
-  // 눈썹
+  // 눈썹 (마우스 클릭 시 살짝 올라감)
+  let eyebrowLift = mouseIsPressed ? -6 : 0;
   noStroke();
   fill(hair);
   rect(cx - eyeDX - 22, eyeY - 30 + eyebrowLift, 44, 8, 4);
@@ -149,9 +145,10 @@ function draw() {
   fill(255, 255, 255, 60);
   rect(cx - 5, eyeY - 6, 10, 46, 5);
 
-  // 입
-  var moodLocal = mood;
+  // 입 (표정 + 마우스 클릭 시 큰웃음)
+  let moodLocal = mood;
   if (mouseIsPressed) moodLocal = 2;
+
   stroke(120, 60, 60);
   strokeWeight(2);
   noFill();
@@ -164,15 +161,14 @@ function draw() {
     ellipse(cx, cy + 56, 34, 18);
   }
 
-  // 시간 진행
+  // 시간 진행 (끄덕임)
   t += TWO_PI / (FPS * 2.5);
 }
 
-// 표정 변경 + 저장
 function keyPressed() {
-  if (key === '1') mood = 1; //웃음
-  if (key === '2') mood = 2; //큰웃음
-  if (key === '3') mood = 3; //놀람
+  if (key === '1') mood = 1;
+  if (key === '2') mood = 2;
+  if (key === '3') mood = 3;
 
   if (key === 's' || key === 'S') {
     saveCanvas('caricature_600x400', 'png');
@@ -180,7 +176,7 @@ function keyPressed() {
 
   if (key === 'g' || key === 'G') {
     if (typeof saveGif === 'function') {
-      saveGif('caricature_animated', 10); // 10초
+      saveGif('caricature_animated', 10);
     }
   }
 }
