@@ -1,4 +1,3 @@
-과제 2
 let mood = 1;
 
 function setup() {
