@@ -7,6 +7,7 @@ function setup() {
 function draw() {
   background(250, 244, 220);
 
+  // 카드
   let cardX = 180;
   let cardY = 60;
   let cardW = 240;
@@ -16,47 +17,54 @@ function draw() {
   fill(230, 240, 245);
   rect(cardX, cardY, cardW, cardH, 20);
 
+  // 이름
   fill(0, 0, 0, 40);
   rect(cardX, cardY - 26, 90, 22, 6);
-
   fill(40);
   textSize(14);
   text("이동형", cardX + 10, cardY - 10);
 
+  // 기준점
   let cx = cardX + cardW / 2;
   let cy = cardY + cardH / 2 + 10;
 
+  // 얼굴/머리/피부색
   let faceW = 160;
   let faceH = 220;
   let skin = color(242, 210, 185);
   let hair = color(40, 32, 28);
 
+  // 레이어 기준점
   let faceBottom = cy + faceH / 2;
   let neckTop = faceBottom - 22;
   let neckH = 40;
   let neckW = 56;
   let bodyTop = neckTop + neckH - 6;
 
+  // 몸통
   noStroke();
   fill(80, 110, 190);
   rect(cx - 110, bodyTop, 220, 130, 28);
-
   fill(65, 95, 170);
   arc(cx, bodyTop, 220, 40, 0, PI, CHORD);
 
+  // 목
   fill(skin);
   rect(cx - neckW / 2, neckTop, neckW, neckH, 12);
 
+  // 얼굴
   stroke(70, 55, 48);
   strokeWeight(1);
   fill(skin);
   ellipse(cx, cy, faceW, faceH);
 
+  // 귀
   noStroke();
   fill(skin);
   ellipse(cx - faceW / 2 - 10, cy + 6, 22, 34);
   ellipse(cx + faceW / 2 + 10, cy + 6, 22, 34);
 
+  // 머리카락
   let eyeY = cy - 18;
   let browCenterY = eyeY - 26;
   let crownY = cy - faceH * 0.5;
@@ -72,6 +80,7 @@ function draw() {
   arc(cx, hairlineY, faceW + 120, faceH + 40, PI, TWO_PI, CHORD);
   drawingContext.restore();
 
+  // 눈
   let eyeDX = 38;
   let eyeOpen = 1.0;
 
@@ -81,6 +90,7 @@ function draw() {
   ellipse(cx - eyeDX, eyeY, 55, 36 * eyeOpen);
   ellipse(cx + eyeDX, eyeY, 55, 36 * eyeOpen);
 
+  // 동공 고정
   let px = 0;
   let py = 0;
 
@@ -97,21 +107,25 @@ function draw() {
   ellipse(cx - eyeDX + px - 4, eyeY + py - 4, 4, 4);
   ellipse(cx + eyeDX + px - 4, eyeY + py - 4, 4, 4);
 
+  // 눈썹
   noStroke();
   fill(hair);
   rect(cx - eyeDX - 22, eyeY - 30, 44, 8, 4);
   rect(cx + eyeDX - 22, eyeY - 30, 44, 8, 4);
 
+  // 코
   stroke(95, 75, 65);
   strokeWeight(1.5);
   line(cx, eyeY - 2, cx, cy + 24);
   noFill();
   arc(cx, cy + 28, 18, 8, 0, PI);
 
+  // 하이라이트
   noStroke();
   fill(255, 255, 255, 60);
   rect(cx - 5, eyeY - 6, 10, 46, 5);
 
+  // 입
   stroke(120, 60, 60);
   strokeWeight(2);
   noFill();
