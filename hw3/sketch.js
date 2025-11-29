@@ -1,4 +1,4 @@
-과제 3 let t = 0;        
+let t = 0;        
 let mood = 1;     // 1=작은웃음, 2=큰웃음, 3=놀람
 let blinkTimer = 0;
 let nextBlink = 120; // 4초마다 깜박
